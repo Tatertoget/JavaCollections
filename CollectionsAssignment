@@ -1,0 +1,159 @@
+Oppgave 1
+Kodesnutten under oppretter en ArrayList med tallene 1, 5, 5, 2 og skriver ut disse til konsoll.
+
+List<Integer> liste = new ArrayList<>();
+liste.add(1);
+liste.add(5);
+liste.add(5);
+liste.add(2);
+
+System.out.println(liste);
+Gjør endringer i koden slik at du istedenfor bruker:
+
+LinkedList. Det vil si at du erstatter "ArrayList" med "LinkedList". Beskriv hva den endrede koden skriver ut til konsollen. I hvilke tilfeller er det anbefalt at man bruker ArrayList og hvilke tilfeller burde man bruke LinkedList?
+
+
+Set med TreeSet. Her må du erstatte "List" med "Set" og "ArrayList" med "TreeSet". Beskriv hva denne koden skriver ut til konsoll og hvorfor utskriften er annerledes sammenliknet med List-koden.
+
+
+
+
+
+
+Oppgave 2
+I koden under sammenliknes to String objekter:
+
+String str1 = new String("OsloMet");
+String str2 = new String("OsloMet");
+boolean erlik = str1 == str2;
+System.out.println(erlik);
+
+Denne sammenlikningen gir false (prøv selv), selv om de to strengene er like. Dette er fordi == operatoren gjør sammenlikning av verdiene til referansevariabler og vil derfor bare gi sann hvis de to referansevariablene refererer til samme objekt. Beskriv hva dette innebærer.
+
+En mer korrekt metode for å sammenlikne objekter er å bruke equals metoden. Gjør endringer i koden slik at sammenlikningen bruker denne equals metoden, noe som vil føre til at erlik-variabelen blir true.
+
+
+
+
+Oppgave 3
+Opprett en klasse Car med følgende oppsett:
+
+public class Car {
+
+    privat datafelt: manufacturer (String)
+    privat datafelt: age (int)
+
+    Konstruktør med manufacturer og age som parametre
+
+    get-metoder for manufacturer og age
+
+    toString metode som returnerer en beskrivende String
+
+}
+
+Implementer funksjonalitet slik at Car-objekter kan sorteres alfabetisk etter manufacturer.
+
+Dette oppnås ved å legge til interfacet Comparable og implementere metoden compareTo (tips: i din IDE, skriv "implements Comparable<Car>" etter "public class Car" og trykk på feilmeldingen i IDEen slik at den automatisk fyller inn de metodene du trenger å implementere).
+
+Manufacturer er av typen String og du burde bruke compareTo-metoden til String for å oppnå sammenlikningen. Det vil si, ikke implementer en egen metode for å sammenlikne String objekter, siden dette allerede er støttet av String klassen!
+
+Test din metode ved å opprette et TreeSet med flere Car-objekter. Når du skriver ut TreeSet objektet til konsollen, burde objektene være sortert automatisk etter manufacturer.
+
+
+
+
+
+Oppgave 4
+Lag en ny sammenlikningsmetode, uten å erstatte din gamle du laget over, der biler sorteres først etter manufacturer og deretter etter alder hvis manufacturer er lik mellom de to objektene.
+
+For å oppnå dette, opprett en ny klasse med navn ManufacturerCarComparator som implementerer interfacet Comparator<Car>. Du må her implementere metoden compare (igjen, bruk IDEen til å automatisk fylle inn metoden som skal implementeres).
+
+For å teste din metode, opprett en ArrayList med alle car objektene fra TreeSet objektet fra forrige oppgave. Dette kan oppnås ved å sende TreeSet objektet inn som parameter til konstruktøren til ArrayList. Legg til en bil som har samme manufacturer med ulik alder som en av de eksisterende bilene i listen. Bruk deretter sort metoden til Collections for å sortere, slik:
+
+Collections.sort(carlist, new ManufacturerCarComparator());
+
+
+
+
+
+Oppgave 5
+Opprett en Student klasse med følgende oppsett:
+
+public class Student {
+
+    private datafelt:
+       - firstName (String)
+       - lastName (String)
+       - studentID (int)
+       - age (int)
+
+    Konstruktør med alle datafeltene som parametre
+
+    get-metoder for alle datafeltene
+
+    toString-metode som returnerer en beskrivende String
+
+}
+
+
+
+
+
+
+Oppgave 6
+Implementer en ny klasse StudentGroup som skal inneholde en gruppe med studenter. Denne gruppen skal inneholde en oversikt over studentene med en karakter for hver student.
+
+For å oppnå dette, skal du bruke et kart, dvs. Map. Inkluder derfor et datafelt i StudentGroup klassen av typen HashMap<Student, Integer>. Karakter skal representeres som et heltall mellom 0 og 100.
+
+Legg til følgende metode i StudentGroup: addStudent(Student student, Integer grade) som legger til en student til studentgruppen ved å bruke put metoden til HashMap. Test oppsettet ditt ved å legge studenter til et StudentGroup objekt og skriv ut disse til konsoll via toString metoder.
+
+
+
+
+
+
+
+Oppgave 7
+Løsningen over tillater at man kan legge til en student flere ganger, dvs. to eller flere studenter objekter med samme student id i HashMap'et. Implementer funksjonalitet slik at StudentGroup ikke tillater duplikate studenter, noe som forsåvidt er regelen til Map siden nøkler skal være unike.
+
+For å oppnå dette, må du implementere equals og hashCode metodene for Student klassen. HashMap bruker disse til å sammenlikne objekter, så etter at du har implementert disse korrekt vil duplikate elementer automatisk ikke bli inkludert i kartet.
+
+Du kan bruke følgende mal for å implementere equals metoden. Fyll inn korrekt sammenlikning på slutten av metoden.
+
+@Override
+public boolean equals(Object obj) {
+    // like referansevariabler betyr at objektene må være like
+    if (this == obj) return true;
+
+    // hvis obj ikke er av typen Student, så kan de ikke være like
+    if(getClass() != obj.getClass())
+        return false;
+
+    // Vi kan nå sammenlikne student id'ene til de to studentene
+    Student other = (Student) obj;
+    < sammenlikn de to student id'ene her og returner resultatet >
+}
+
+Hvis du vil, kan du finne algoritmer for å produsere sikre hash koder på internett. En typisk løsning er å multiplisere hash koden til alle datafeltene med unike primtall og deretter returnere summen av dette. Eksempel på en hashCode metode:
+
+@Override
+public int hashCode() {
+    return 17*firstName.hashCode() + 31*lastName.hashCode() + 41*Integer.hashCode(studentID) +
+            113*Integer.hashCode(age);
+}
+
+Husk, regelen til equals og hashCode er at hvis a.equals(b) gir true, så skal a.hashCode() være lik b.hashCode(), ellers skal a.hashCode() alltid være ulik b.hashCode().
+
+
+
+
+
+
+
+Oppgave 8
+Implementer følgende metode i StudentGroup: listStudentsByGrade, som lister studenter sortert etter karakter (best/høyest karakter først). Utlistingen skal til slutt skrive ut gjennomsnittskarakteren til alle studentene.
+
+For å sortere et Map etter verdier, kan koden under brukes. Den produserer en sortert liste, der hvert element er en Map.Entry (objekt som inneholder både nøkkelen og verdien til kart-elementet). GradeComparator er en Comparator klasse som sammenlikner to karakterer (dvs. to heltall). Denne må du implementere for at sorteringen skal gjennomføres etter høyest verdi først.
+
+ArrayList<Map.Entry<Student, Integer>> list = new ArrayList<>(studentsWithGrade.entrySet());
+list.sort(Map.Entry.comparingByValue(new GradeComparator()));
